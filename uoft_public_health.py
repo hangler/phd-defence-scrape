@@ -8,9 +8,6 @@ class UofTPublicHealthListing(AbstractDefenceListing):
         return "http://www.dlsph.utoronto.ca/page/"
 
     def parse_date(self, date_element):
-        #first_comma_index = date_element.text.index(",")
-        #second_comma_index = date_element.text.index(",", first_comma_index + 1)
-        #date = date_element.text[:second_comma_index + 6] # "..., 2014" so slice at 2nd comma + 6 chars
         search_results = re.search("2\d\d\d", date_element.text)
         room_index = search_results.start() + 4
         date = date_element.text[:room_index].strip().title()
@@ -65,7 +62,6 @@ class UofTPublicHealthListing(AbstractDefenceListing):
                         label = label_cell.text.replace(":", "").lower()
                         label_changed = True
                         label = self.singularize(label)
-                    #print "%s (%s)" % (label, str(label in committee))
                     detail_cell = label_cell.findNext('td')
                     if label in committee:
                         committee[label].append(self.clean(detail_cell.text.title()))
@@ -108,6 +104,9 @@ class UofTPublicHealthDefenceDetail(AbstractDefenceDetail):
 
     def g_comm_cosupervisors(self):
         return self.committee["co-supervisor"]
+
+    def g_comm_internal_examiner(self):
+        pass
 
     def g_comm_external_examiner(self):
         return self.committee["external examiner"]

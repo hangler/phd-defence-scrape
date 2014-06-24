@@ -32,6 +32,7 @@ class AbstractDefenceDetail(object):
                 "supervisor": [],
                 "co-supervisor": [],
                 "external examiner": [],
+                "internal examiner": [],
                 "voting member": [],
                 "non-voting member": [],
             }
@@ -80,6 +81,10 @@ class AbstractDefenceDetail(object):
 
     @abstractmethod
     def g_comm_cosupervisors(self):
+        pass
+
+    @abstractmethod
+    def g_comm_internal_examiner(self):
         pass
 
     @abstractmethod
